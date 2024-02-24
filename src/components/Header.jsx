@@ -5,7 +5,7 @@ const Header = () => {
     const [logIn, setLogIn] = useState(true);
     return (
         <div className="bg-blackMain border-b border-solid border-white">
-            <div className="container">
+            <div className="container-app">
                 <div className="py-6 flex justify-between items-center text-white">
                     <a href="/">
                         <h2 className="text-3xl">Awesome Portfolio Crypto</h2>
