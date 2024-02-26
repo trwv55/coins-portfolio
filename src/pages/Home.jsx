@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setItems } from '../redux/slices/crypto/slice';
 import { fakeFetchCrypto, fakeFetchAssetes } from '../api';
 import { percentDifference } from '../utils';
-import { setData } from '../redux/slices/assets/slice';
+import { setData, assetsData } from '../redux/slices/assets/slice';
+import AssetBlock from '../components/AssetBlock';
 
 const Main = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    const assets = useSelector(assetsData); // купленные монеты
 
     // добавим новые поля в Assets
     function handleAssets(assets, result) {
@@ -42,7 +44,14 @@ const Main = () => {
 
     return (
         <div className="bg-blackMain text-white grow">
-            <div className="container-app">Main Portfolio</div>
+            <div className="container-app">
+                <div className="mx-auto mt-10">
+                    <p className="font-bold text-lg mb-2">Assets</p>
+                    {assets.map((asset) => (
+                        <AssetBlock key={asset.id} asset={asset} />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };

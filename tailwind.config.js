@@ -34,6 +34,12 @@ export default {
                 current: 'currentColor',
                 white: '#ffffff',
                 blackMain: 'rgb(36,46,52)',
+                blue: 'rgb(49,142,245)',
+                grey: 'rgb(48,59,66)',
+                border: 'rgba(255, 255, 255, 0.075)',
+            },
+            width: {
+                1300: '1300px',
             },
         },
     },

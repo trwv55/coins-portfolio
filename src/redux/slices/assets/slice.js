@@ -30,7 +30,7 @@ const assetsSlice = createSlice({
     },
 });
 
-// Экспортируем экшены и редюсер из Slice
 export const { setData } = assetsSlice.actions;
+export const assetsData = (state) => state.assets.data;
 
 export default assetsSlice.reducer;
