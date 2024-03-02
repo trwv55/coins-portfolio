@@ -24,6 +24,7 @@ const Main = () => {
                 grow: asset.price < coin.price,
                 totalMoneyNow: asset.amount * coin.price,
                 totalProfit: asset.amount * coin.price - asset.amount * asset.price,
+                avgBuyPrice: '',
                 growPercent: calculatePercentageDifference(asset.price, coin.price),
                 ...coin,
             };
