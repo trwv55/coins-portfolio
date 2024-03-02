@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setItems } from '../redux/slices/crypto/slice';
 import { fakeFetchCrypto, fakeFetchAssetes } from '../api';
-import { percentDifference } from '../utils';
+import { calculatePercentageDifference } from '../utils';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 import AssetBlock from '../components/AssetBlock';
+import Loading from '../components/Loading';
 
 const Main = () => {
     const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ const Main = () => {
                 grow: asset.price < coin.price,
                 totalMoneyNow: asset.amount * coin.price,
                 totalProfit: asset.amount * coin.price - asset.amount * asset.price,
-                growPercent: percentDifference(asset.price, coin.price),
+                growPercent: calculatePercentageDifference(asset.price, coin.price),
                 ...coin,
             };
         });
@@ -43,14 +44,18 @@ const Main = () => {
     }, []);
 
     return (
-        <div className="bg-blackMain text-white grow">
-            <div className="container-app">
-                <div className="mx-auto mt-10">
-                    <p className="font-bold text-lg mb-2">Assets</p>
-                    {assets.map((asset) => (
-                        <AssetBlock key={asset.id} asset={asset} />
-                    ))}
-                </div>
+        <div className="bg-blackMain text-white grow relative">
+            <div className="max-w-1420 px-5 w-full h-full mx-auto">
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <div className="mx-auto mt-10">
+                        <p className="font-bold text-lg mb-2">Assets</p>
+                        {assets.map((asset) => (
+                            <AssetBlock key={asset.id} asset={asset} />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

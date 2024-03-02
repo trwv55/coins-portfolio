@@ -1,29 +1,28 @@
-import React from 'react';
-
+/* eslint-disable react/prop-types */
 const AssetBlock = ({ asset }) => {
-    console.log('asset', asset);
+    // console.log('asset', asset);
     return (
         <>
             <div className="overflow-auto mb-5">
                 <div className="py-3 bg-grey rounded-md border border-solid border-border flex justify-between min-w-[80rem]">
                     <div className="flex">
-                        <div className="flex flex-col ml-6 mr-6 min-w-14">
+                        <div className="flex flex-col ml-6 mr-6 min-w-44">
                             <div className="pb-2 border-b border-border">Name</div>
-                            <div className="flex pt-2">
-                                <img src="" alt="" />
+                            <div className="flex items-center pt-2">
+                                <img className="w-10 h-10 mr-2" src={asset.icon} alt="" />
                                 <p className="font-bold text-xl">
-                                    Celestia
-                                    <span className="text-slate-400 pl-2">TIA</span>
+                                    {asset.name}
+                                    <span className="text-slate-400 pl-2">{asset.symbol}</span>
                                 </p>
                             </div>
                         </div>
                         <div className="flex flex-col ml-6 mr-6 min-w-12">
                             <div className="pb-2 border-b border-border">Price</div>
-                            <div className="pt-2 text-xl">$17</div>
+                            <div className="pt-2 text-xl">${asset.price.toFixed(2)}</div>
                         </div>
                         <div className="flex flex-col ml-6 mr-6 min-w-12">
                             <div className="pb-2 border-b border-border">1h%</div>
-                            <div className="pt-2 text-xl">1.26%</div>
+                            <div className="pt-2 text-xl">{asset.priceChange1h}</div>
                         </div>
                         <div className="flex flex-col ml-6 mr-6 min-w-12">
                             <div className="pb-2 border-b border-border">24h%</div>
@@ -53,7 +52,7 @@ const AssetBlock = ({ asset }) => {
                         </div>
                     </div>
                     <div className="flex justify-center items-center mr-6">
-                        <button>Add</button>
+                        <button className="relative p-4">Add</button>
                     </div>
                 </div>
             </div>

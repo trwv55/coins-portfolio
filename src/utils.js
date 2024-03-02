@@ -1,3 +1,8 @@
-export function percentDifference(a, b) {
-    return +(100 * Math.abs((a - b) / ((a + b) / 2))).toFixed(2);
+export function calculatePercentageDifference(originalValue, newValue) {
+    // Рассчитываем разницу между новым и оригинальным значениями
+    const difference = newValue - originalValue;
+    // Рассчитываем процентную разницу
+    const percentageDifference = (difference / Math.abs(originalValue)) * 100;
+
+    return percentageDifference;
 }
