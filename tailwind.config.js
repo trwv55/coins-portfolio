@@ -35,6 +35,7 @@ export default {
                 white: '#ffffff',
                 blackMain: 'rgb(36,46,52)',
                 blue: 'rgb(49,142,245)',
+                blueHover: 'rgb(44, 128, 221)',
                 grey: 'rgb(48,59,66)',
                 greySecond: 'rgb(56,66,72)',
                 border: 'rgba(255, 255, 255, 0.075)',
