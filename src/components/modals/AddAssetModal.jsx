@@ -1,9 +1,35 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setData, assetsData } from '../../redux/slices/assets/slice';
 import FormAsset from '../FormAsset';
 
 const AddAssetModal = ({ isOpen, asset, onClose }) => {
+    const assets = useSelector(assetsData); // купленные монеты
+    const [tryAsset, setTryAsset] = useState({});
+    const dispatch = useDispatch();
+    const [addAssetsData, setAddAssetsData] = useState({
+        name: asset.name,
+        amount: '',
+        price: '',
+        total: '',
+        countMoney: false,
+    });
+
+    function updateAsset() {
+        assets.map((asset) => {
+            if (asset.name === addAssetsData.name) {
+                console.log('asset', asset);
+                const coin = addAssetsData;
+                return setTryAsset({
+                    ...asset,
+                    amount: +asset.amount + +addAssetsData.amount,
+                });
+            }
+        });
+    }
+
     return (
         <>
             {isOpen && (
@@ -21,7 +47,11 @@ const AddAssetModal = ({ isOpen, asset, onClose }) => {
                             <img className="mr-2 w-11 h-11" src={asset.icon} alt="" />
                             <div className="text-gray-700 font-bold text-xl">{asset.name}</div>
                         </div>
-                        <FormAsset />
+                        <FormAsset
+                            addAssetsData={addAssetsData}
+                            setAddAssetsData={setAddAssetsData}
+                            updateAsset={updateAsset}
+                        />
                     </div>
                 </div>
             )}

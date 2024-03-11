@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import AddAssetModal from './modals/AddAssetModal';
 
-/* eslint-disable react/prop-types */
 const AssetBlock = ({ asset }) => {
-    const [openBuyModal, setOpenBuyModa] = useState(false);
-    const [openSellModal, setOpenSellModa] = useState(false);
+    const [openBuyModal, setOpenBuyModal] = useState(false);
+    const [openSellModal, setOpenSellModal] = useState(false);
 
     useEffect(() => {
         // изменим цвет строки в зависимости того цена в "+" или "-"
@@ -36,7 +36,7 @@ const AssetBlock = ({ asset }) => {
     }
 
     function closeModal() {
-        setOpenBuyModa(false);
+        setOpenBuyModal(false);
     }
 
     return (
@@ -107,7 +107,7 @@ const AssetBlock = ({ asset }) => {
                         <div className="hidden">
                             <ul className="absolute top-16 -left-2 w-20 flex justify-between bg-greySecond px-1 rounded mt-1 optionList">
                                 <li className="text-blue transition-all hover:text-white">
-                                    <button onClick={() => setOpenBuyModa(true)}>Buy</button>
+                                    <button onClick={() => setOpenBuyModal(true)}>Buy</button>
                                 </li>
                                 <li className="text-blue transition-all hover:text-white">
                                     <button>Sell</button>

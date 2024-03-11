@@ -1,26 +1,34 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { setData, assetsData } from '../redux/slices/assets/slice';
 
-const FormAsset = () => {
-    const [data, setData] = useState({
-        amount: '',
-        price: '',
-        total: '',
-        newMoney: false,
+const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset }) => {
+    // console.log('addAssetsData', addAssetsData);
+    const [formData, setFormData] = useState({
+        name: addAssetsData.name || null,
+        amount: addAssetsData.amount || '',
+        price: addAssetsData.price || '',
+        total: addAssetsData.total || '',
+        countMoney: addAssetsData.countMoney || false,
     });
 
+    // обновим переданый State
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
-        setData((prevData) => {
+        setFormData((prevData) => {
             let newAmount = prevData.amount;
             let newPrice = prevData.price;
+            let newCountMoney = prevData.countMoney;
 
             // Обновляем значения amount и price
             if (name === 'amount') {
                 newAmount = value;
             } else if (name === 'price') {
                 newPrice = value;
+            } else if (name === 'countMoney') {
+                newCountMoney = value;
             }
 
             // Вычисляем значение Total
@@ -30,9 +38,11 @@ const FormAsset = () => {
             return {
                 ...prevData,
                 [name]: value,
+                name: prevData.name,
                 amount: newAmount,
                 price: newPrice,
                 total: newTotal,
+                countMoney: newCountMoney,
             };
         });
     };
@@ -40,8 +50,13 @@ const FormAsset = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log('data', data);
+        if (formData.countMoney) {
+            console.log('нужно обновить wallet');
+        }
+        setAddAssetsData(formData); // Обновляем внешний стейт значениями из локального стейта формы
+        updateAsset(); // Обновим asset данными из полей формы
     };
+
     return (
         <div>
             <form action="POST" onSubmit={handleSubmit}>
@@ -52,7 +67,7 @@ const FormAsset = () => {
                             className="border-solid border border-border border-gray-500 rounded-md w-9/12 h-11 ml-3 px-2"
                             type="number"
                             name="amount"
-                            value={data.amount}
+                            value={formData.amount}
                             onChange={handleInputChange}
                             required
                         />
@@ -63,7 +78,7 @@ const FormAsset = () => {
                             className="border-solid border border-border border-gray-700 rounded-md w-9/12 h-11 ml-3 px-2"
                             type="number"
                             name="price"
-                            value={data.price}
+                            value={formData.price}
                             onChange={handleInputChange}
                         />
                     </label>
@@ -74,8 +89,8 @@ const FormAsset = () => {
                             type="number"
                             name="total"
                             value={
-                                data.amount !== '' && data.price !== ''
-                                    ? data.amount * data.price
+                                formData.amount !== '' && formData.price !== ''
+                                    ? formData.amount * formData.price
                                     : ''
                             }
                             onChange={(e) =>
@@ -87,11 +102,20 @@ const FormAsset = () => {
                         />
                     </label>
                     <label className="mb-4">
-                        <input className="mr-1" type="checkbox" />
-                        New Money
+                        <input
+                            className="mr-1"
+                            type="checkbox"
+                            value={formData.countMoney}
+                            onChange={(e) =>
+                                handleInputChange({
+                                    target: { name: 'countMoney', value: e.target.checked },
+                                })
+                            }
+                        />
+                        Add $ to wallet
                     </label>
                     <button className="p-4 bg-blue rounded-lg w-full text-white font-semibold text-l transition-all hover:bg-blueHover">
-                        Add Asset
+                        Update asset
                     </button>
                 </div>
             </form>
