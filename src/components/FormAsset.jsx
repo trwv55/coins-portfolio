@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 
-const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset }) => {
-    // console.log('addAssetsData', addAssetsData);
+const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset, closeModal }) => {
     const [formData, setFormData] = useState({
         name: addAssetsData.name || null,
         amount: addAssetsData.amount || '',
@@ -54,7 +53,8 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset }) => {
             console.log('нужно обновить wallet');
         }
         setAddAssetsData(formData); // Обновляем внешний стейт значениями из локального стейта формы
-        updateAsset(); // Обновим asset данными из полей формы
+        updateAsset(); // Обновим поля которые изменили в AssetBlock
+        // closeModal();
     };
 
     return (
@@ -73,13 +73,14 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset }) => {
                         />
                     </label>
                     <label className="mb-4 flex justify-between items-center">
-                        Price
+                        Price <span className="text-red-600">*</span>
                         <input
                             className="border-solid border border-border border-gray-700 rounded-md w-9/12 h-11 ml-3 px-2"
                             type="number"
                             name="price"
                             value={formData.price}
                             onChange={handleInputChange}
+                            required
                         />
                     </label>
                     <label className="mb-4 flex justify-between items-center">

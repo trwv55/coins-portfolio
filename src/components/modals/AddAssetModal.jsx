@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setData, assetsData } from '../../redux/slices/assets/slice';
 import FormAsset from '../FormAsset';
 
-const AddAssetModal = ({ isOpen, asset, onClose }) => {
+const AddAssetModal = ({ isOpen, asset, closeModal }) => {
     const assets = useSelector(assetsData); // купленные монеты
     const [tryAsset, setTryAsset] = useState({});
     const dispatch = useDispatch();
@@ -39,9 +39,9 @@ const AddAssetModal = ({ isOpen, asset, onClose }) => {
                         <div className="text-gray-700 font-bold mb-4 text-center">Add Asset</div>
                         <button
                             className="text-gray-500 hover:text-gray-700 absolute top-2 right-8"
-                            onClick={onClose}
+                            onClick={closeModal}
                         >
-                            Close
+                            &times;
                         </button>
                         <div className="flex items-center pb-4 border-b border-solid border-gray-850">
                             <img className="mr-2 w-11 h-11" src={asset.icon} alt="" />
@@ -51,6 +51,7 @@ const AddAssetModal = ({ isOpen, asset, onClose }) => {
                             addAssetsData={addAssetsData}
                             setAddAssetsData={setAddAssetsData}
                             updateAsset={updateAsset}
+                            closeModal={closeModal}
                         />
                     </div>
                 </div>

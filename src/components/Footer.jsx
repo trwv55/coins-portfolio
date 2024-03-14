@@ -4,10 +4,10 @@ const Footer = () => {
     return (
         <div className="min-h-14 text-white bg-blackMain border-t border-solid border-white">
             <p>
-                Created by:
+                {/* Created by:
                 <a href="https://github.com/trwv55" target="_blank">
                     @trwv55
-                </a>
+                </a> */}
             </p>
         </div>
     );

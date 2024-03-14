@@ -118,7 +118,7 @@ const AssetBlock = ({ asset }) => {
                 </div>
             </div>
 
-            <AddAssetModal isOpen={openBuyModal} asset={asset} onClose={closeModal} />
+            <AddAssetModal isOpen={openBuyModal} asset={asset} closeModal={closeModal} />
         </>
     );
 };
