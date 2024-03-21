@@ -54,7 +54,7 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset, closeModal })
         }
         setAddAssetsData(formData); // Обновляем внешний стейт значениями из локального стейта формы
         updateAsset(); // Обновим поля которые изменили в AssetBlock
-        // closeModal();
+        closeModal();
     };
 
     return (
