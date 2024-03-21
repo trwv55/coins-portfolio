@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { setData, assetsData } from '../redux/slices/assets/slice';
+import { editAsset } from '../redux/slices/assets/slice';
 
 const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset, closeModal }) => {
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         name: addAssetsData.name || null,
         amount: addAssetsData.amount || '',
@@ -52,8 +55,10 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset, closeModal })
         if (formData.countMoney) {
             console.log('нужно обновить wallet');
         }
-        setAddAssetsData(formData); // Обновляем внешний стейт значениями из локального стейта формы
-        updateAsset(); // Обновим поля которые изменили в AssetBlock
+        console.log('formData', formData);
+        // setAddAssetsData(formData); // Обновляем внешний стейт значениями из локального стейта формы
+        // updateAsset(); // Обновим поля которые изменили в AssetBlock
+        dispatch(editAsset(formData));
         closeModal();
     };
 

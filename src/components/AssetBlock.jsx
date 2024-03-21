@@ -8,7 +8,7 @@ const AssetBlock = ({ asset }) => {
     const [openSellModal, setOpenSellModal] = useState(false);
 
     useEffect(() => {
-        // изменим цвет строки в зависимости того цена в "+" или "-"
+        // Изменим цвет строки в зависимости того цена в "+" или "-"
         function colorClass() {
             const elems = document.querySelectorAll('.handleColor');
             elems.forEach((elem) => {

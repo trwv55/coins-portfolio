@@ -25,7 +25,6 @@ const assetsSlice = createSlice({
                 if (item.name === action.payload.name) {
                     return { ...item, amount: +item.amount + +action.payload.amount };
                 }
-                console.log('item', item);
                 return item;
             });
         },

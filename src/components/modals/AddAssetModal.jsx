@@ -17,11 +17,9 @@ const AddAssetModal = ({ isOpen, asset, closeModal }) => {
         countMoney: false,
     });
 
-    console.log('addAssetsData', addAssetsData);
+    // console.log('addAssetsData', addAssetsData);
 
-    function updateAsset() {
-        dispatch(editAsset(addAssetsData));
-    }
+    function updateAsset() {}
 
     return (
         <>
