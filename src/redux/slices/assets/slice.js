@@ -13,13 +13,6 @@ const assetsSlice = createSlice({
         setData(state, action) {
             state.data = action.payload;
         },
-        updateAsset(state, action) {
-            const { name, amount } = action.payload;
-            const existingAsset = state.find((asset) => asset.name === name);
-            if (existingAsset) {
-                existingAsset.amount += +amount;
-            }
-        },
         editAsset(state, action) {
             state.data = state.data.map((item) => {
                 if (item.name === action.payload.name) {
@@ -37,7 +30,7 @@ const assetsSlice = createSlice({
     },
 });
 
-export const { setData, updateAsset, editAsset } = assetsSlice.actions;
+export const { setData, editAsset } = assetsSlice.actions;
 export const assetsData = (state) => state.assets.data;
 
 export default assetsSlice.reducer;

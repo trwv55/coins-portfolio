@@ -7,6 +7,7 @@ import { calculatePercentageDifference } from '../utils';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 import AssetBlock from '../components/AssetBlock';
 import Loading from '../components/Loading';
+import AddCoin from '../components/AddCoin/AddCoin';
 
 const Main = () => {
     const [loading, setLoading] = useState(false);
@@ -47,6 +48,7 @@ const Main = () => {
     return (
         <div className="bg-blackMain text-white grow relative">
             <div className="max-w-1420 px-5 w-full h-full mx-auto">
+                <AddCoin />
                 {loading ? (
                     <Loading />
                 ) : (

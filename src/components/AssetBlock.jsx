@@ -6,6 +6,7 @@ import AddAssetModal from './modals/AddAssetModal';
 const AssetBlock = ({ asset }) => {
     const [openBuyModal, setOpenBuyModal] = useState(false);
     const [openSellModal, setOpenSellModal] = useState(false);
+    console.log('asset', asset);
 
     useEffect(() => {
         // Изменим цвет строки в зависимости того цена в "+" или "-"

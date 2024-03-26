@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setData, assetsData, updateAsset, editAsset } from '../../redux/slices/assets/slice';
+import { setData, assetsData, editAsset } from '../../redux/slices/assets/slice';
 import FormAsset from '../FormAsset';
 
 const AddAssetModal = ({ isOpen, asset, closeModal }) => {
@@ -16,10 +16,6 @@ const AddAssetModal = ({ isOpen, asset, closeModal }) => {
         total: null,
         countMoney: false,
     });
-
-    // console.log('addAssetsData', addAssetsData);
-
-    function updateAsset() {}
 
     return (
         <>
@@ -41,7 +37,6 @@ const AddAssetModal = ({ isOpen, asset, closeModal }) => {
                         <FormAsset
                             addAssetsData={addAssetsData}
                             setAddAssetsData={setAddAssetsData}
-                            updateAsset={updateAsset}
                             closeModal={closeModal}
                         />
                     </div>

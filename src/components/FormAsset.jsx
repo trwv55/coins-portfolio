@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 import { editAsset } from '../redux/slices/assets/slice';
 
-const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset, closeModal }) => {
+const FormAsset = ({ addAssetsData, setAddAssetsData, closeModal }) => {
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         name: addAssetsData.name || null,
@@ -55,9 +55,6 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, updateAsset, closeModal })
         if (formData.countMoney) {
             console.log('нужно обновить wallet');
         }
-        console.log('formData', formData);
-        // setAddAssetsData(formData); // Обновляем внешний стейт значениями из локального стейта формы
-        // updateAsset(); // Обновим поля которые изменили в AssetBlock
         dispatch(editAsset(formData));
         closeModal();
     };
