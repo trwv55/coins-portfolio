@@ -13,6 +13,7 @@ const Main = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const assets = useSelector(assetsData); // купленные монеты
+    console.log('assets', assets);
 
     // добавим новые поля в Assets
     function handleAssets(assets, result) {
@@ -32,18 +33,18 @@ const Main = () => {
         });
     }
 
-    useEffect(() => {
-        async function preload() {
-            setLoading(true);
-            const { result } = await fakeFetchCrypto();
-            const assets = await fakeFetchAssetes();
+    // useEffect(() => {
+    //     async function preload() {
+    //         setLoading(true);
+    //         const { result } = await fakeFetchCrypto();
+    //         const assets = await fakeFetchAssetes();
 
-            dispatch(setData(handleAssets(assets, result)));
-            dispatch(setItems(result));
-            setLoading(false);
-        }
-        preload();
-    }, []);
+    //         dispatch(setData(handleAssets(assets, result)));
+    //         dispatch(setItems(result));
+    //         setLoading(false);
+    //     }
+    //     preload();
+    // }, []);
 
     return (
         <div className="bg-blackMain text-white grow relative">

@@ -1,7 +1,28 @@
+/* eslint-disable no-useless-catch */
+/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Создаем асинхронный thunk для выполнения запроса к API
-export const fetcAssetsData = createAsyncThunk('crypto/fetchData', async () => {});
+export const fetchAssetsData = createAsyncThunk('assets/fetchData', async (coinId) => {
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            'X-API-KEY': 'CyIYvUxMv640YOuos1Z+69vVJkQuzXJymkfkSzN0wVM=',
+        },
+    };
+
+    try {
+        const responce = await fetch(`https://openapiv1.coinstats.app/coins/${coinId}`, options);
+        if (!responce.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data = await responce.json();
+        return data;
+    } catch (error) {
+        throw error;
+    }
+});
 
 const assetsSlice = createSlice({
     name: 'assets',
@@ -23,9 +44,16 @@ const assetsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetcAssetsData.fulfilled, (state, action) => {
+        builder.addCase(fetchAssetsData.pending, (state) => {
+            state.status = 'loading';
+        });
+        builder.addCase(fetchAssetsData.fulfilled, (state, action) => {
             state.status = 'success';
-            state.data = action.payload;
+            state.data = [...state.data, action.payload];
+        });
+        builder.addCase(fetchAssetsData.rejected, (state, action) => {
+            state.status = 'failed';
+            console.error('fetch failed', action.error.message);
         });
     },
 });
