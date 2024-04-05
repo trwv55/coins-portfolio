@@ -37,8 +37,6 @@ const NewAsset = ({ openModal, setOpenModal }) => {
                             <input
                                 placeholder="Type full name"
                                 className="border-solid border border-border border-gray-700 rounded-md h-9 p-3 min-w-80 mr-2 text-black"
-                                value={coinName}
-                                onChange={(e) => setCoinName(e.target.value)}
                             />
                             <button
                                 type="submit"

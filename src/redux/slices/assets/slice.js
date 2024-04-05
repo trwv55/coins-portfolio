@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-catch */
-/* eslint-disable no-unused-vars */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Создаем асинхронный thunk для выполнения запроса к API
