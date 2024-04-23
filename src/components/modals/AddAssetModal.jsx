@@ -6,6 +6,7 @@ import { setData, assetsData, editAsset } from '../../redux/slices/assets/slice'
 import FormAsset from '../FormAsset';
 
 const AddAssetModal = ({ isOpen, asset, closeModal }) => {
+    console.log('isOpen', isOpen);
     const assets = useSelector(assetsData); // купленные монеты
     const [tryAsset, setTryAsset] = useState(assets);
     const dispatch = useDispatch();
@@ -14,7 +15,6 @@ const AddAssetModal = ({ isOpen, asset, closeModal }) => {
         amount: '',
         price: null,
         total: null,
-        countMoney: false,
     });
 
     return (

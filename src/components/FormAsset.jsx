@@ -12,7 +12,7 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, closeModal }) => {
         amount: addAssetsData.amount || '',
         price: addAssetsData.price || '',
         total: addAssetsData.total || '',
-        countMoney: addAssetsData.countMoney || false,
+        // countMoney: addAssetsData.countMoney || false,
     });
 
     // обновим переданый State
@@ -22,15 +22,12 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, closeModal }) => {
         setFormData((prevData) => {
             let newAmount = prevData.amount;
             let newPrice = prevData.price;
-            let newCountMoney = prevData.countMoney;
 
             // Обновляем значения amount и price
             if (name === 'amount') {
                 newAmount = value;
             } else if (name === 'price') {
                 newPrice = value;
-            } else if (name === 'countMoney') {
-                newCountMoney = value;
             }
 
             // Вычисляем значение Total
@@ -44,7 +41,6 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, closeModal }) => {
                 amount: newAmount,
                 price: newPrice,
                 total: newTotal,
-                countMoney: newCountMoney,
             };
         });
     };
@@ -103,19 +99,6 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, closeModal }) => {
                             }
                             readOnly
                         />
-                    </label>
-                    <label className="mb-4">
-                        <input
-                            className="mr-1"
-                            type="checkbox"
-                            value={formData.countMoney}
-                            onChange={(e) =>
-                                handleInputChange({
-                                    target: { name: 'countMoney', value: e.target.checked },
-                                })
-                            }
-                        />
-                        Add $ to wallet
                     </label>
                     <button className="p-4 bg-blue rounded-lg w-full text-white font-semibold text-l transition-all hover:bg-blueHover">
                         Update asset

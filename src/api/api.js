@@ -1,3 +1,4 @@
+// Поиск монеты "Добавить монету" для дальнейшей настройки актива в мод окне Add new asset
 export async function fetchNewName(coinName) {
     const options = {
         method: 'GET',
@@ -7,12 +8,19 @@ export async function fetchNewName(coinName) {
         },
     };
 
-    try {
-        const responce = await fetch(`https://openapiv1.coinstats.app/coins/${coinName}`, options);
-        const data = await responce.json();
-        console.log('data', data);
-        return data;
-    } catch (error) {
-        console.error(error);
-    }
+    await fetch(`https://openapiv1.coinstats.app/coins/${coinName}`, options)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Error: Coin not found');
+            }
+            return response.json();
+        })
+        .then((response) => {
+            console.log('res', response);
+            return response;
+        })
+        .catch((err) => {
+            console.error('Network response was not ok', err);
+            throw err;
+        });
 }

@@ -13,7 +13,6 @@ const Main = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const assets = useSelector(assetsData); // купленные монеты
-    console.log('assets', assets);
 
     // добавим новые поля в Assets
     function handleAssets(assets, result) {

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import AddAssetModal from './modals/AddAssetModal';
 
 const AssetBlock = ({ asset }) => {
-    const [openBuyModal, setOpenBuyModal] = useState(false);
+    const [openBuyModal, setOpenBuyModal] = useState(true);
     const [openSellModal, setOpenSellModal] = useState(false);
 
     useEffect(() => {

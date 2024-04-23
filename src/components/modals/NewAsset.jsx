@@ -1,22 +1,27 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchAssetsData } from '../../redux/slices/assets/slice';
+import FormAsset from '../FormAsset';
 
-// Добавить новую монету
-const NewAsset = ({ openModal, setOpenModal }) => {
+// Указываем количество, цену новой монеты
+const NewAsset = ({ openModal, setOpenModal, coin }) => {
     const dispatch = useDispatch();
-    const [coinName, setCoinName] = useState(''); // Храним имя монеты
-
+    const [addAssetsData, setAddAssetsData] = useState({
+        name: null,
+        amount: '',
+        price: null,
+        total: null,
+        // countMoney: false,
+    }); // запишем данные с модального окна чтобы добавить новую монету
     function handleSubmit(e) {
         e.preventDefault();
 
-        if (coinName.trim().length >= 3) {
-            const name = coinName.toLowerCase();
-            dispatch(fetchAssetsData(name));
-            setCoinName('');
-        }
+        // if (coinName.trim().length >= 3) {
+        //     const name = coinName.toLowerCase();
+        //     dispatch(fetchAssetsData(name));
+        //     setCoinName('');
+        // }
     }
     return (
         <>
@@ -34,26 +39,26 @@ const NewAsset = ({ openModal, setOpenModal }) => {
                             &times;
                         </button>
                         <form className="flex justify-between" onSubmit={handleSubmit}>
-                            <input
+                            {/* <input
                                 placeholder="Type full name"
                                 className="border-solid border border-border border-gray-700 rounded-md h-9 p-3 min-w-80 mr-2 text-black"
-                            />
-                            <button
+                            /> */}
+                            {/* <button
                                 type="submit"
                                 className="bg-blue rounded-md px-8 hover:bg-blueHover"
                             >
                                 Find Coin
-                            </button>
+                            </button> */}
                         </form>
                         {/* <div className="flex items-center pb-4 border-b border-solid border-gray-850">
                             <img className="mr-2 w-11 h-11" src="" alt="" />
                             <div className="text-gray-700 font-bold text-xl">Name</div>
                         </div> */}
-                        {/* <FormAsset
+                        <FormAsset
+                            closeModal={setOpenModal}
                             addAssetsData={addAssetsData}
                             setAddAssetsData={setAddAssetsData}
-                            closeModal={closeModal}
-                        /> */}
+                        />
                     </div>
                 </div>
             )}
