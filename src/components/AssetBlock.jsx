@@ -72,14 +72,10 @@ const AssetBlock = ({ asset }) => {
                         </div>
                         <div className="flex flex-col ml-6 mr-6 min-w-12">
                             <div className="pb-2 border-b border-border">Holdings</div>
-                            {/* <div className="pt-2 text-xl">${asset.totalMoneyNow.toFixed(2)}</div> */}
+                            <div className="pt-2 text-xl">${asset.total}</div>
                             <div className="pt-2 text-base whitespace-nowrap">
                                 {asset.amount} {asset.symbol}
                             </div>
-                        </div>
-                        <div className="flex flex-col ml-6 mr-6 min-w-12">
-                            <div className="pb-2 border-b border-border">Start</div>
-                            {/* <div className="pt-2 text-xl">${asset.totalMoneyIn.toFixed(2)}</div> */}
                         </div>
                         <div className="flex flex-col ml-6 mr-6 min-w-12">
                             <div className="pb-2 border-b border-border whitespace-nowrap">
@@ -90,7 +86,7 @@ const AssetBlock = ({ asset }) => {
                         <div className="flex flex-col ml-6 mr-6 min-w-12">
                             <div className="pb-2 border-b border-border">Profit/Loss</div>
                             <div className="pt-2 text-xl whitespace-nowrap">
-                                {/* ${asset.totalProfit.toFixed(2)} */}
+                                {/* {calculateTotalProfit(asset.amount, asset.price)} */}
                             </div>
                             <div className="pt-2 text-base handleColor">
                                 {/* {asset.growPercent.toFixed(2)}% */}

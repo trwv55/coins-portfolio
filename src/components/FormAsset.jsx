@@ -5,15 +5,25 @@ import { useDispatch } from 'react-redux';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 import { editAsset } from '../redux/slices/assets/slice';
 
-const FormAsset = ({ addAssetsData, setAddAssetsData, closeModal }) => {
+const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }) => {
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         name: addAssetsData.name || null,
         amount: addAssetsData.amount || '',
-        price: addAssetsData.price || '',
+        priceBuy: addAssetsData.price || '',
         total: addAssetsData.total || '',
         // countMoney: addAssetsData.countMoney || false,
     });
+
+    useEffect(() => {
+        // полностью повторяется запись в стейт как в модальном компоненте NewAsset. ок?
+        if (addAssetsData !== undefined) {
+            setFormData((prevData) => ({
+                ...prevData,
+                name: addAssetsData.name,
+            }));
+        }
+    }, [addAssetsData]);
 
     // обновим переданый State
     const handleInputChange = (e) => {
@@ -39,25 +49,21 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, closeModal }) => {
                 [name]: value,
                 name: prevData.name,
                 amount: newAmount,
-                price: newPrice,
+                priceBuy: newPrice,
                 total: newTotal,
             };
         });
     };
 
-    const handleSubmit = (e) => {
+    const submitForm = (e) => {
         e.preventDefault();
 
-        if (formData.countMoney) {
-            console.log('нужно обновить wallet');
-        }
-        dispatch(editAsset(formData));
-        closeModal();
+        handleSubmit(formData);
     };
 
     return (
         <div>
-            <form action="POST" onSubmit={handleSubmit}>
+            <form action="POST" onSubmit={submitForm}>
                 <div className="flex flex-col text-gray-600 mt-3 w-full">
                     <label className="mb-4 flex justify-between items-center">
                         Amount <span className="text-red-600">*</span>

@@ -1,28 +1,38 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchAssetsData } from '../../redux/slices/assets/slice';
 import FormAsset from '../FormAsset';
 
 // Указываем количество, цену новой монеты
-const NewAsset = ({ openModal, setOpenModal, coin }) => {
+const NewAsset = ({ toggleModal, coin, openModal }) => {
+    // NewAsset рендериться каждый раз при печати в инпут т.к coin обновляется. нужно исправить
+    const { id } = coin;
     const dispatch = useDispatch();
     const [addAssetsData, setAddAssetsData] = useState({
-        name: null,
+        name: '',
         amount: '',
-        price: null,
+        priceBuy: null,
         total: null,
-        // countMoney: false,
     }); // запишем данные с модального окна чтобы добавить новую монету
-    function handleSubmit(e) {
-        e.preventDefault();
 
-        // if (coinName.trim().length >= 3) {
-        //     const name = coinName.toLowerCase();
-        //     dispatch(fetchAssetsData(name));
-        //     setCoinName('');
-        // }
-    }
+    useEffect(() => {
+        // обновляем addAssetsData.name когда пришел coin
+        if (coin && coin.id !== undefined) {
+            setAddAssetsData((prevData) => ({
+                ...prevData,
+                name: coin.id,
+            }));
+        }
+    }, [coin]);
+
+    // Получим данные из формы, добавим новую монету в стейт с кастомными полями
+    const handleSubmit = (formData) => {
+        // const { name, amount, price, total } = formdata;
+        dispatch(fetchAssetsData({ ...formData, coinId: id }));
+        toggleModal();
+    };
+
     return (
         <>
             {openModal && (
@@ -32,32 +42,23 @@ const NewAsset = ({ openModal, setOpenModal, coin }) => {
                         <div className="text-gray-700 font-bold mb-4 text-center">
                             Add New Asset
                         </div>
+                        {coin && (
+                            <div className="flex justify-center items-center">
+                                <img className="w-10 h-10 mr-2" src={coin.icon} alt=""></img>
+                                <p className="text-gray-700 font-bold text-2xl">{coin.name}</p>
+                            </div>
+                        )}
                         <button
                             className="text-gray-500 hover:text-gray-700 absolute top-2 right-8"
-                            onClick={() => setOpenModal(false)}
+                            onClick={toggleModal}
                         >
                             &times;
                         </button>
-                        <form className="flex justify-between" onSubmit={handleSubmit}>
-                            {/* <input
-                                placeholder="Type full name"
-                                className="border-solid border border-border border-gray-700 rounded-md h-9 p-3 min-w-80 mr-2 text-black"
-                            /> */}
-                            {/* <button
-                                type="submit"
-                                className="bg-blue rounded-md px-8 hover:bg-blueHover"
-                            >
-                                Find Coin
-                            </button> */}
-                        </form>
-                        {/* <div className="flex items-center pb-4 border-b border-solid border-gray-850">
-                            <img className="mr-2 w-11 h-11" src="" alt="" />
-                            <div className="text-gray-700 font-bold text-xl">Name</div>
-                        </div> */}
+
                         <FormAsset
-                            closeModal={setOpenModal}
                             addAssetsData={addAssetsData}
                             setAddAssetsData={setAddAssetsData}
+                            handleSubmit={handleSubmit}
                         />
                     </div>
                 </div>

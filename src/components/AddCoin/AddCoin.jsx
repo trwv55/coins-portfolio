@@ -9,20 +9,23 @@ const AddCoin = () => {
 
     const coinNameRef = useRef('');
 
+    const toggleModal = () => {
+        setOpenModal(!openModal);
+    };
+
     const handleClick = async (e) => {
         e.preventDefault();
         const currentCoinName = coinNameRef.current?.value.trim().toLowerCase();
 
         if (currentCoinName.length >= 3) {
             try {
-                const data = await fetchNewName(currentCoinName);
-                console.log('data', data); // undefined хотя fetchNewName получает данные
+                let data = await fetchNewName(currentCoinName);
                 setNewAsset(data);
                 setCoinName('');
-                setOpenModal(true);
             } catch (error) {
                 console.error('Error fetching data:', error.message);
             }
+            setOpenModal(true);
         }
     };
 
@@ -41,7 +44,7 @@ const AddCoin = () => {
                 </button>
             </form>
 
-            <NewAsset openModal={openModal} setOpenModal={setOpenModal} coin={newAsset} />
+            <NewAsset toggleModal={toggleModal} openModal={openModal} coin={newAsset} />
         </>
     );
 };

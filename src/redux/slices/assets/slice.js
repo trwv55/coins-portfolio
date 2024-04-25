@@ -2,26 +2,32 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Создаем асинхронный thunk для выполнения запроса к API
-export const fetchAssetsData = createAsyncThunk('assets/fetchData', async (coinId) => {
-    const options = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            'X-API-KEY': 'CyIYvUxMv640YOuos1Z+69vVJkQuzXJymkfkSzN0wVM=',
-        },
-    };
+export const fetchAssetsData = createAsyncThunk(
+    'assets/fetchData',
+    async ({ coinId, amount, priceBuy, total }) => {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                'X-API-KEY': 'CyIYvUxMv640YOuos1Z+69vVJkQuzXJymkfkSzN0wVM=',
+            },
+        };
 
-    try {
-        const responce = await fetch(`https://openapiv1.coinstats.app/coins/${coinId}`, options);
-        if (!responce.ok) {
-            throw new Error('Failed to fetch data');
+        try {
+            const responce = await fetch(
+                `https://openapiv1.coinstats.app/coins/${coinId}`,
+                options,
+            );
+            if (!responce.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await responce.json();
+            return { ...data, amount, priceBuy, total }; // Возвращаем объект с дополнительными полями
+        } catch (error) {
+            throw error;
         }
-        const data = await responce.json();
-        return data;
-    } catch (error) {
-        throw error;
-    }
-});
+    },
+);
 
 const assetsSlice = createSlice({
     name: 'assets',

@@ -9,7 +9,7 @@ import AssetBlock from '../components/AssetBlock';
 import Loading from '../components/Loading';
 import AddCoin from '../components/AddCoin/AddCoin';
 
-const Main = () => {
+const Home = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const assets = useSelector(assetsData); // купленные монеты
@@ -64,4 +64,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Home;

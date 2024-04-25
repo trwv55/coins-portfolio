@@ -8,7 +8,7 @@ export async function fetchNewName(coinName) {
         },
     };
 
-    await fetch(`https://openapiv1.coinstats.app/coins/${coinName}`, options)
+    return await fetch(`https://openapiv1.coinstats.app/coins/${coinName}`, options)
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Error: Coin not found');
@@ -16,7 +16,6 @@ export async function fetchNewName(coinName) {
             return response.json();
         })
         .then((response) => {
-            console.log('res', response);
             return response;
         })
         .catch((err) => {
