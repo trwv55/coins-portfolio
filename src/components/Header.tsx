@@ -1,8 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 
+type TLogInState = boolean;
+
 const Header = () => {
-    const [logIn, setLogIn] = useState(true);
+    const [logIn, setLogIn] = useState<TLogInState>(true);
+    
     return (
         <div className="bg-blackMain border-b border-solid border-white">
             <div className="container-app">

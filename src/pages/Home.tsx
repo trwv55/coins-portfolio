@@ -1,36 +1,33 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setItems } from '../redux/slices/crypto/slice';
-import { fakeFetchCrypto, fakeFetchAssetes } from '../api';
-import { calculatePercentageDifference } from '../utils';
-import { setData, assetsData } from '../redux/slices/assets/slice';
+import AddCoin from '../components/AddCoin/AddCoin';
 import AssetBlock from '../components/AssetBlock';
 import Loading from '../components/Loading';
-import AddCoin from '../components/AddCoin/AddCoin';
+import { assetsData } from '../redux/slices/assets/slice';
 
-const Home = () => {
+const Home: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const assets = useSelector(assetsData); // купленные монеты
 
     // добавим новые поля в Assets
-    function handleAssets(assets, result) {
-        return assets.map((asset) => {
-            const coin = result.find((c) => c.id === asset.id);
-            return {
-                name: coin.name,
-                amount: asset.amount,
-                totalMoneyIn: asset.price * asset.amount,
-                grow: asset.price < coin.price,
-                totalMoneyNow: asset.amount * coin.price,
-                totalProfit: asset.amount * coin.price - asset.amount * asset.price,
-                avgBuyPrice: '',
-                growPercent: calculatePercentageDifference(asset.price, coin.price),
-                ...coin,
-            };
-        });
-    }
+    // function handleAssets(assets, result) {1
+    //     return assets.map((asset) => {
+    //         const coin = result.find((c) => c.id === asset.id);
+    //         return {
+    //             name: coin.name,
+    //             amount: asset.amount,
+    //             totalMoneyIn: asset.price * asset.amount,
+    //             grow: asset.price < coin.price,
+    //             totalMoneyNow: asset.amount * coin.price,
+    //             totalProfit: asset.amount * coin.price - asset.amount * asset.price,
+    //             avgBuyPrice: '',
+    //             growPercent: calculatePercentageDifference(asset.price, coin.price),
+    //             ...coin,
+    //         };
+    //     });
+    // }
 
     // useEffect(() => {
     //     async function preload() {
