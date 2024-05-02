@@ -6,6 +6,7 @@ const AddCoin = () => {
     const [coinName, setCoinName] = useState('');
     const [openModal, setOpenModal] = useState(false); // Открытие мод окна для дальнейшей настройки Asset
     const [newAsset, setNewAsset] = useState({}); // здесь после запроса храним монету для передачи в мод окно NewAsset
+    const [error, setError] = useState(false); // Если пришла ошибка с сервера
 
     const coinNameRef = useRef('');
 
@@ -20,12 +21,21 @@ const AddCoin = () => {
         if (currentCoinName.length >= 3) {
             try {
                 let data = await fetchNewName(currentCoinName);
-                setNewAsset(data);
+
+                console.log('data', data);
+                if (data) {
+                    setNewAsset(data);
+                    setOpenModal(true);
+                } else {
+                    // эта часть для вывода на UI при ошибке не работает
+                    setError(true);
+                }
+
+                console.log('err', error);
                 setCoinName('');
             } catch (error) {
                 console.error('Error fetching data:', error.message);
             }
-            setOpenModal(true);
         }
     };
 
