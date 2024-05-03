@@ -1,17 +1,23 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAssetsData } from '../../redux/slices/assets/slice';
 import FormAsset from '../FormAsset';
+import { TAddAssetsData, TCoinData } from '../../types/types';
+
+type TNewAssetProps = {
+    toggleModal: () => void,
+    coin: TCoinData,
+    openModal: boolean
+}
 
 // Указываем количество, цену новой монеты
-const NewAsset = ({ toggleModal, coin, openModal }) => {
-    // NewAsset рендериться каждый раз при печати в инпут т.к coin обновляется. нужно исправить
+const NewAsset = ({ toggleModal, coin, openModal }: TNewAssetProps) => {
+    // NewAsset перерендерится каждый раз при печати в инпут т.к coin обновляется. нужно исправить
     const { id } = coin;
     const dispatch = useDispatch();
-    const [addAssetsData, setAddAssetsData] = useState({
+    const [addAssetsData, setAddAssetsData] = useState<TAddAssetsData>({
         name: '',
-        amount: '',
+        amount: null,
         priceBuy: null,
         total: null,
     }); // запишем данные с модального окна чтобы добавить новую монету
@@ -27,12 +33,12 @@ const NewAsset = ({ toggleModal, coin, openModal }) => {
     }, [coin]);
 
     // Получим данные из формы, добавим новую монету в стейт с кастомными полями
-    const handleSubmit = (formData) => {
+    const handleSubmit = (formData: TAddAssetsData) => {
         // const { name, amount, price, total } = formdata;
         dispatch(fetchAssetsData({ ...formData, coinId: id }));
         toggleModal();
     };
-
+    console.log('addAssetsData', addAssetsData);
     return (
         <>
             {openModal && (

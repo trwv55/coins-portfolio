@@ -1,14 +1,16 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 import { editAsset } from '../redux/slices/assets/slice';
 
+// type TFormAssetProps = {
+//     addAssetsData:
+// }
+
 const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }) => {
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
-        name: addAssetsData.name || null,
+        name: addAssetsData.name || '',
         amount: addAssetsData.amount || '',
         priceBuy: addAssetsData.price || '',
         total: addAssetsData.total || '',

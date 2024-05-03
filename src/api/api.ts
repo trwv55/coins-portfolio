@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { TCoinData } from '../types/types';
 
 // Поиск монеты "Добавить монету" для дальнейшей настройки актива в мод окне Add new asset
-export async function fetchNewName(coinName) {
-    const options = {
+export async function fetchNewName(coinName: string): Promise<TCoinData> {
+    const options: AxiosRequestConfig = {
         method: 'GET',
         headers: {
             accept: 'application/json',
@@ -11,7 +12,7 @@ export async function fetchNewName(coinName) {
     };
 
     try {
-        const response = await axios.get(
+        const response = await axios.get<TCoinData>(
             `https://openapiv1.coinstats.app/coins/${coinName}`,
             options,
         );
