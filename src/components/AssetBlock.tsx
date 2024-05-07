@@ -1,9 +1,11 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import AddAssetModal from './modals/AddAssetModal';
+import { TCoinDataExtended } from '../types/types';
 
-const AssetBlock = ({ asset }) => {
+type TAssetBlockProps = {
+    asset: TCoinDataExtended,
+}
+
+const AssetBlock = ({ asset }: TAssetBlockProps) => {
     const [openBuyModal, setOpenBuyModal] = useState(true);
     const [openSellModal, setOpenSellModal] = useState(false);
 
@@ -11,9 +13,11 @@ const AssetBlock = ({ asset }) => {
         // Изменим цвет строки в зависимости того цена в "+" или "-"
         function colorClass() {
             const elems = document.querySelectorAll('.handleColor');
+            
             elems.forEach((elem) => {
-                const priceChange = elem.textContent.slice(0, -1);
-                const positiveDinamic = parseFloat(priceChange) > 0;
+                const priceChange = elem.textContent?.slice(0, -1);
+                let positiveDinamic;
+                typeof priceChange === 'string' ? positiveDinamic = parseFloat(priceChange) : '';
                 const colorClass = positiveDinamic ? 'text-green-500' : 'text-red-500';
 
                 elem.classList.add(colorClass);
@@ -22,14 +26,15 @@ const AssetBlock = ({ asset }) => {
         colorClass();
     }, [asset]);
 
-    function handleAdd(e) {
-        const siblingBlock = e.target.nextSibling;
+    function handleAdd(e: React.MouseEvent<HTMLButtonElement>) {
+        const targetElement = e.target as HTMLElement;
+        const siblingBlock = targetElement.nextElementSibling;
 
         // Отобразим выбор операции
-        if (siblingBlock.classList.contains('hidden')) {
+        if (siblingBlock && siblingBlock.classList.contains('hidden')) {
             siblingBlock.classList.remove('hidden');
             siblingBlock.classList.add('inline-block');
-        } else {
+        } else if (siblingBlock !== null) {
             siblingBlock.classList.remove('inline-block');
             siblingBlock.classList.add('hidden');
         }
@@ -114,7 +119,8 @@ const AssetBlock = ({ asset }) => {
                 </div>
             </div>
 
-            <AddAssetModal isOpen={openBuyModal} asset={asset} closeModal={closeModal} />
+            
+            {/* <AddAssetModal isOpen={openBuyModal} asset={asset} closeModal={closeModal} /> */}
         </>
     );
 };

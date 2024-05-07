@@ -5,11 +5,12 @@ import AddCoin from '../components/AddCoin/AddCoin';
 import AssetBlock from '../components/AssetBlock';
 import Loading from '../components/Loading';
 import { assetsData } from '../redux/slices/assets/slice';
+import { TCoinDataExtended } from '../types/types';
 
 const Home: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const assets = useSelector(assetsData); // купленные монеты
+    const assets: TCoinDataExtended[] = useSelector(assetsData); // купленные монеты
 
     // добавим новые поля в Assets
     // function handleAssets(assets, result) {1

@@ -2,19 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 import { editAsset } from '../redux/slices/assets/slice';
+import { TAddAssetsData } from '../types/types';
 
-// type TFormAssetProps = {
-//     addAssetsData:
-// }
+type TSetAddAssetsData = React.Dispatch<React.SetStateAction<TAddAssetsData>>;
 
-const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }) => {
+type TFormAssetProps = {
+    addAssetsData: TAddAssetsData;
+    setAddAssetsData: TSetAddAssetsData;
+    handleSubmit: any;
+}
+
+const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAssetProps) => {
+    console.log('addAssetsData', addAssetsData);
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         name: addAssetsData.name || '',
         amount: addAssetsData.amount || '',
-        priceBuy: addAssetsData.price || '',
+        priceBuy: addAssetsData.priceBuy || '',
         total: addAssetsData.total || '',
-        // countMoney: addAssetsData.countMoney || false,
     });
 
     useEffect(() => {

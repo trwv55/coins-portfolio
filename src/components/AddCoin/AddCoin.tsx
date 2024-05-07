@@ -4,11 +4,11 @@ import { TCoinData } from '../../types/types';
 import NewAsset from '../modals/NewAsset';
 
 const AddCoin = () => {
-    const [coinName, setCoinName] = useState('');
+    const [coinName, setCoinName] = useState(''); // Название монеты, которое вводит пользователь
     const [openModal, setOpenModal] = useState(false); // Открытие мод окна для дальнейшей настройки Asset
     const [newAsset, setNewAsset] = useState<TCoinData>({} as TCoinData); // здесь после запроса храним монету для передачи в мод окно NewAsset
     const [error, setError] = useState(false); // Если пришла ошибка с сервера
-
+    const [loading, setLoading] = useState(false);
     const coinNameRef = useRef<HTMLInputElement>(null);
 
     const toggleModal = () => {
@@ -23,6 +23,7 @@ const AddCoin = () => {
     const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const currentCoinName = coinNameRef.current?.value?.trim().toLowerCase() ?? '';
+        setLoading(true)
 
         if (currentCoinName.length >= 3) {
             try {
@@ -34,6 +35,8 @@ const AddCoin = () => {
                 }
 
                 setCoinName('');
+                setLoading(false);
+                
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     // Обработка ошибки типа Error

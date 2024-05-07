@@ -38,7 +38,7 @@ const NewAsset = ({ toggleModal, coin, openModal }: TNewAssetProps) => {
         dispatch(fetchAssetsData({ ...formData, coinId: id }));
         toggleModal();
     };
-    console.log('addAssetsData', addAssetsData);
+
     return (
         <>
             {openModal && (

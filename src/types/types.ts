@@ -29,3 +29,9 @@ export type TAddAssetsData = {
     priceBuy: number | null;
     total: number | null;
 }
+
+// используется в Home.tsx
+export type TCoinDataExtended = TCoinData & {
+    amount: string;
+    total: string;
+}
