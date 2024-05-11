@@ -12,7 +12,7 @@ type TNewAssetProps = {
 
 // Указываем количество, цену новой монеты
 const NewAsset = ({ toggleModal, coin, openModal }: TNewAssetProps) => {
-    // NewAsset перерендерится каждый раз при печати в инпут т.к coin обновляется. нужно исправить
+    // NewAsset перерендерится каждый раз при печати в инпут т.к coin обновляется. требуется исправить
     const { id } = coin;
     const dispatch = useDispatch();
     const [addAssetsData, setAddAssetsData] = useState<TAddAssetsData>({
@@ -34,7 +34,6 @@ const NewAsset = ({ toggleModal, coin, openModal }: TNewAssetProps) => {
 
     // Получим данные из формы, добавим новую монету в стейт с кастомными полями
     const handleSubmit = (formData: TAddAssetsData) => {
-        // const { name, amount, price, total } = formdata;
         dispatch(fetchAssetsData({ ...formData, coinId: id }));
         toggleModal();
     };

@@ -25,13 +25,13 @@ export type TCoinData = {
 // используется в NewAsset.tsx и FormAsset
 export type TAddAssetsData = {
     name: string;
-    amount: number | null;
-    priceBuy: number | null;
-    total: number | null;
+    amount: string | null | number;
+    priceBuy: string | null | number;
+    total: string | null | number;
 }
 
 // используется в Home.tsx
 export type TCoinDataExtended = TCoinData & {
-    amount: string;
+    amount: number;
     total: string;
 }

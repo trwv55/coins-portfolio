@@ -9,13 +9,12 @@ type TSetAddAssetsData = React.Dispatch<React.SetStateAction<TAddAssetsData>>;
 type TFormAssetProps = {
     addAssetsData: TAddAssetsData;
     setAddAssetsData: TSetAddAssetsData;
-    handleSubmit: any;
+    handleSubmit: (formData: TAddAssetsData) => void;
 }
 
 const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAssetProps) => {
-    console.log('addAssetsData', addAssetsData);
     const dispatch = useDispatch();
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<TAddAssetsData>({
         name: addAssetsData.name || '',
         amount: addAssetsData.amount || '',
         priceBuy: addAssetsData.priceBuy || '',
@@ -33,23 +32,25 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAsset
     }, [addAssetsData]);
 
     // обновим переданый State
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
         setFormData((prevData) => {
             let newAmount = prevData.amount;
-            let newPrice = prevData.price;
+            let newPrice = prevData.priceBuy;
 
             // Обновляем значения amount и price
             if (name === 'amount') {
-                newAmount = value;
-            } else if (name === 'price') {
-                newPrice = value;
+                newAmount = +value;
+            } else if (name === 'priceBuy') {
+                newPrice = +value;
             }
 
             // Вычисляем значение Total
             const newTotal =
-                !isNaN(newAmount) && !isNaN(newPrice) ? (newAmount * newPrice).toFixed(2) : '';
+                newAmount !== null && newPrice !== null && typeof newAmount === 'number' && typeof newPrice === 'number' && !isNaN(newAmount) && !isNaN(newPrice)
+                    ? (newAmount * newPrice).toFixed(2)
+                    : '';
 
             return {
                 ...prevData,
@@ -57,14 +58,14 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAsset
                 name: prevData.name,
                 amount: newAmount,
                 priceBuy: newPrice,
-                total: newTotal,
+                total: +newTotal,
             };
         });
     };
 
-    const submitForm = (e) => {
-        e.preventDefault();
 
+    const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         handleSubmit(formData);
     };
 
@@ -78,7 +79,7 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAsset
                             className="border-solid border border-border border-gray-500 rounded-md w-9/12 h-11 ml-3 px-2"
                             type="number"
                             name="amount"
-                            value={formData.amount}
+                            value={formData.amount?.toString() || ''}
                             onChange={handleInputChange}
                             required
                         />
@@ -88,8 +89,8 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAsset
                         <input
                             className="border-solid border border-border border-gray-700 rounded-md w-9/12 h-11 ml-3 px-2"
                             type="number"
-                            name="price"
-                            value={formData.price}
+                            name="priceBuy"
+                            value={formData.priceBuy?.toString() || ''}
                             onChange={handleInputChange}
                             required
                         />
@@ -101,15 +102,11 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAsset
                             type="number"
                             name="total"
                             value={
-                                formData.amount !== '' && formData.price !== ''
-                                    ? formData.amount * formData.price
+                                formData.amount !== '' && formData.priceBuy !== '' && formData.amount !== null && formData.priceBuy!== null
+                                    ? +formData.amount * +formData.priceBuy
                                     : ''
                             }
-                            onChange={(e) =>
-                                handleInputChange({
-                                    target: { name: 'total', value: e.target.value },
-                                })
-                            }
+                            onChange={handleInputChange}
                             readOnly
                         />
                     </label>

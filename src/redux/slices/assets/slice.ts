@@ -1,10 +1,32 @@
 /* eslint-disable no-useless-catch */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { TCoinDataExtended } from '../../../types/types';
+
+type AssetsState = {
+    data: TCoinDataExtended[];
+    status: string;
+}
+
+const initialState: AssetsState = {
+    data: [],
+    status: '',
+};
+
+type FetchDataParams = {
+    coinId: any,
+    amount: any,
+    priceBuy: any,
+    total: any,
+}
 
 // Создаем асинхронный thunk для выполнения запроса к API
 export const fetchAssetsData = createAsyncThunk(
     'assets/fetchData',
-    async ({ coinId, amount, priceBuy, total }) => {
+    async ({ coinId, amount, priceBuy, total }: FetchDataParams) => {
+        console.log('coinId', coinId, typeof coinId)
+        console.log('amount', amount, typeof amount)
+        console.log('priceBuy', priceBuy, typeof priceBuy)
+        console.log('total', total, typeof total)
         const options = {
             method: 'GET',
             headers: {
@@ -31,12 +53,9 @@ export const fetchAssetsData = createAsyncThunk(
 
 const assetsSlice = createSlice({
     name: 'assets',
-    initialState: {
-        data: [],
-        status: '',
-    },
+    initialState,
     reducers: {
-        setData(state, action) {
+        setData(state, action: PayloadAction<TCoinDataExtended[]>) {
             state.data = action.payload;
         },
         editAsset(state, action) {
