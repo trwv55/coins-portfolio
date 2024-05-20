@@ -41,7 +41,7 @@ const FormAsset = ({ addAssetsData, setAddAssetsData, handleSubmit }: TFormAsset
 
             // Обновляем значения amount и price
             if (name === 'amount') {
-                newAmount = +value;
+                newAmount = value;
             } else if (name === 'priceBuy') {
                 newPrice = +value;
             }

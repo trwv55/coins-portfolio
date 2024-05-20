@@ -22,15 +22,22 @@ export type TCoinData = {
     websiteUrl: string;
 }
 
+export type TAddAssetsDataEmpty = {
+    name: string;
+    amount: string | number | null;
+    priceBuy: string | number | null;
+    total: string | number | null;
+}
+
 // используется в NewAsset.tsx и FormAsset
 export type TAddAssetsData = {
     name: string;
-    amount: string | null | number;
-    priceBuy: string | null | number;
-    total: string | null | number;
+    amount: string | number;
+    priceBuy: string | number;
+    total: string | number;
 }
 
-// используется в Home.tsx
+// используется в Home.tsx и Redux toolkit slice
 export type TCoinDataExtended = TCoinData & {
     amount: number;
     total: string;

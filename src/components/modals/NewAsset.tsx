@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchAssetsData } from '../../redux/slices/assets/slice';
 import FormAsset from '../FormAsset';
-import { TAddAssetsData, TCoinData } from '../../types/types';
+import { TAddAssetsData, TAddAssetsDataEmpty, TCoinData } from '../../types/types';
+import { useAppDispatch } from '../../hook';
 
 type TNewAssetProps = {
     toggleModal: () => void,
@@ -14,8 +14,8 @@ type TNewAssetProps = {
 const NewAsset = ({ toggleModal, coin, openModal }: TNewAssetProps) => {
     // NewAsset перерендерится каждый раз при печати в инпут т.к coin обновляется. требуется исправить
     const { id } = coin;
-    const dispatch = useDispatch();
-    const [addAssetsData, setAddAssetsData] = useState<TAddAssetsData>({
+    const dispatch = useAppDispatch();
+    const [addAssetsData, setAddAssetsData] = useState<TAddAssetsDataEmpty>({
         name: '',
         amount: null,
         priceBuy: null,

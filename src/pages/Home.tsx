@@ -6,11 +6,12 @@ import AssetBlock from '../components/AssetBlock';
 import Loading from '../components/Loading';
 import { assetsData } from '../redux/slices/assets/slice';
 import { TCoinDataExtended } from '../types/types';
+import { useAppDispatch, useAppSelector } from '../hook';
 
 const Home: React.FC = () => {
     const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
-    const assets: TCoinDataExtended[] = useSelector(assetsData); // купленные монеты
+    const dispatch = useAppDispatch();
+    const assets: TCoinDataExtended[] = useAppSelector(assetsData); // купленные монеты
 
     // добавим новые поля в Assets
     // function handleAssets(assets, result) {1
