@@ -81,5 +81,6 @@ const assetsSlice = createSlice({
 
 export const { setData, editAsset } = assetsSlice.actions;
 export const assetsData = (state: RootState) => state.assets.data;
+export const assetsStatus = (state: RootState) => state.assets.status;
 
 export default assetsSlice.reducer;
