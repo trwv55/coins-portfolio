@@ -7,11 +7,8 @@ import { assetsData, assetsStatus } from '../redux/slices/assets/slice';
 import { TCoinDataExtended } from '../types/types';
 
 const Home: React.FC = () => {
-    const [loading, setLoading] = useState(false);
-    const dispatch = useAppDispatch();
     const assets: TCoinDataExtended[] = useAppSelector(assetsData); // купленные монеты
     let status: string = useAppSelector(assetsStatus);
-    console.log('status', status)
 
     return (
         <div className="bg-blackMain text-white grow relative">

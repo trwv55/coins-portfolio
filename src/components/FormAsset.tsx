@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setData, assetsData } from '../redux/slices/assets/slice';
 import { editAsset } from '../redux/slices/assets/slice';
-import { TAddAssetsData } from '../types/types';
+import { TAddAssetsData, TAddAssetsDataEmpty } from '../types/types';
 
-type TSetAddAssetsData = React.Dispatch<React.SetStateAction<TAddAssetsData>>;
+type TSetAddAssetsData = React.Dispatch<React.SetStateAction<TAddAssetsDataEmpty>>;
 
 type TFormAssetProps = {
-    addAssetsData: TAddAssetsData;
+    addAssetsData: TAddAssetsDataEmpty;
     setAddAssetsData: TSetAddAssetsData;
     handleSubmit: (formData: TAddAssetsData) => void;
 }

@@ -6,8 +6,14 @@ export default defineConfig({
   plugins: [
     react(),
     ],
-    // define: {
-    //     APP_VERSION: JSON.stringify(process.env.npm_package_version),
-    // }
-  
+    server: {
+        open: true,
+        proxy: {
+          '/api': {
+            target: 'https://openapiv1.coinstats.app',
+            changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/api/, ''),
+          },
+        },
+    },
 })

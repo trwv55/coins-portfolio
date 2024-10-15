@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { fetchNewName } from '../../api/api';
+// import { fetchNewName } from '../../api/api';
 import { TCoinData } from '../../types/types';
 import NewAsset from '../modals/NewAsset';
 
@@ -7,7 +7,7 @@ const AddCoin = () => {
     const [coinName, setCoinName] = useState(''); // Название монеты, которое вводит пользователь
     const [openModal, setOpenModal] = useState(false); // Открытие мод окна для дальнейшей настройки Asset
     const [newAsset, setNewAsset] = useState<TCoinData>({} as TCoinData); // здесь после запроса храним монету для передачи в мод окно NewAsset
-    const [error, setError] = useState(false); // Если пришла ошибка с сервера
+    const [error, setError] = useState(false); 
     const [loading, setLoading] = useState(false);
     const coinNameRef = useRef<HTMLInputElement>(null);
 
@@ -22,36 +22,36 @@ const AddCoin = () => {
 
     const handleClick = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const currentCoinName = coinNameRef.current?.value?.trim().toLowerCase() ?? '';
-        setLoading(true)
+        // const currentCoinName = coinNameRef.current?.value?.trim().toLowerCase() ?? '';
+        // setLoading(true)
 
-        if (currentCoinName.length >= 3) {
-            try {
-                let data = await fetchNewName(currentCoinName);
+        // if (currentCoinName.length >= 3) {
+        //     try {
+        //         let data = await fetchNewName(currentCoinName);
 
-                if (data) {
-                    setNewAsset(data);
-                    setOpenModal(true);
-                }
+        //         if (data) {
+        //             setNewAsset(data);
+        //             setOpenModal(true);
+        //         }
 
-                setCoinName('');
-                setLoading(false);
+        //         setCoinName('');
+        //         setLoading(false);
                 
-            } catch (error: unknown) {
-                if (error instanceof Error) {
-                    // Обработка ошибки типа Error
-                    console.error('Error fetching data:', error.message);
-                    setError(true); // Если пришла ошибка с сервера отобразим сообщение на UI
-                    setCoinName('');
-                } else {
-                    // Обработка ошибки не типа Error
-                    console.error('Unknown error:', error);
-                    setError(true); 
-                    setCoinName('');
-                }
+        //     } catch (error: unknown) {
+        //         if (error instanceof Error) {
+        //             // Обработка ошибки типа Error
+        //             console.error('Error fetching data:', error.message);
+        //             setError(true); // Если пришла ошибка с сервера отобразим сообщение на UI
+        //             setCoinName('');
+        //         } else {
+        //             // Обработка ошибки не типа Error
+        //             console.error('Unknown error:', error);
+        //             setError(true); 
+        //             setCoinName('');
+        //         }
                 
-            }
-        }
+        //     }
+        // }
     };
 
     return (

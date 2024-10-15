@@ -52,9 +52,22 @@ const assetsSlice = createSlice({
     name: 'assets',
     initialState,
     reducers: {
+        // setData(state, action: PayloadAction<TCoinDataExtended[]>) {
+        //     state.data = action.payload;
+        // },
         setData(state, action: PayloadAction<TCoinDataExtended[]>) {
-            state.data = action.payload;
-        },
+            action.payload.forEach((newAsset) => {
+                const existingAsset = state.data.find((item) => item.name === newAsset.name);
+    
+                if (existingAsset) {
+                    // Если актив с таким именем существует, увеличиваем количество
+                    existingAsset.amount = +existingAsset.amount + +newAsset.amount;
+                } else {
+                    // Если актив не существует, добавляем его в массив
+                    state.data.push(newAsset);
+                }
+            });
+    },
         editAsset(state, action: PayloadAction<TCoinDataExtended>) {
             state.data = state.data.map((item) => {
                 if (item.name === action.payload.name) {
