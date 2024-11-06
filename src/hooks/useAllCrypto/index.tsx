@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import axios from "axios";
 
-async function fetchCrypto() {
+async function fetchCrypto(page: number) {
     const options = {
       method: 'GET',
       headers: {
@@ -10,15 +10,18 @@ async function fetchCrypto() {
       }
     };
 
-    const { data } = await axios.get('https://openapiv1.coinstats.app/coins?limit=20', options)
+    let URL_ALL_CRYPTO = `https://openapiv1.coinstats.app/coins?page=${page}&limit=20`
 
-    return data.result
+    const { data } = await axios.get(URL_ALL_CRYPTO, options)
+
+    return data;
 }
 
-function useAllCrypto() {
+function useAllCrypto(page: number) {
   return useQuery({
-    queryKey: ['crypto'], // Используем объект с ключом
-    queryFn: fetchCrypto,  // Передаем функцию получения данных
+    queryKey: ['crypto', page], // Используем объект с ключом
+    queryFn: () =>  fetchCrypto(page), // Передаем функцию получения данных
+    placeholderData: keepPreviousData,
   });
 }
 
